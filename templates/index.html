@@ -1,0 +1,85 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.1/tailwind.min.css">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<style>
+
+</style>
+</head>
+<body class="antialiased bg-gray-200 font-sans">
+   
+        
+    <div class="max-w-6xl mx-auto">
+        
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
+                <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+					<form action="" method="post" enctype="multipart/form-data">
+                
+                <input class="form-control form-control-lg" id="image" type="file" name="image" required>
+					<div class="bg-cover bg-center h-56 p-4" >
+                        
+					<img id="imagePreview" class="bg-cover bg-center h-56 p-0" src="{% if imge %} {{imge}}{% else %}https://t4.ftcdn.net/jpg/04/99/93/31/360_F_499933117_ZAUBfv3P1HEOsZDrnkbNCt4jc3AodArl.jpg {% endif %}" style="width: 100%;border-radius: 30px;opacity: 0.8;border: 2px solid black;" alt="{{imge}}">
+                    <div id="new-input-container" onclick="createNewInputFields()"></div>
+                    <div style="background-color:#EC407A;position: absolute;top:30%;left: 25%;" id="in" ></div>
+                    
+
+                    
+                        <div class="flex justify-end">
+                            
+                        </div>
+                    </div>
+                    <div class="p-4" style="margin-top: 20px;">
+                        <p class="uppercase tracking-wide text-sm font-bold text-gray-700">IA classification</p>
+                        <p class="text-3xl text-gray-900">Test de Similarité :</p>
+                        <p class="text-gray-700">Nombre des ingrédients : 5</p>
+                    </div>
+                    <div class="flex p-4 border-t border-gray-300 text-gray-700">
+                       
+                    </div>
+                    <div class="px-3 pt-4 pb-4 border-t border-gray-300 bg-gray-100">
+                        <div class="font-bold text-gray-700">Les ingrédients  de plats :</div>
+						<br>
+                        		
+                         
+                                <p class="text-gray-900 font-bold" > {% if prediction %}{% if (prediction[0][0]*100) > 2.5 %}<span style="color: red;">Tomato : </span> <i class="bi bi-check-all" style="padding-right: 30px;">Existe</i><input type="text" placeholder="calories"  style="width: 30%;text-align: center;" autofocus>  {% endif %}{% endif %}</p>
+                                <p class="text-gray-900 font-bold" style="padding-bottom: 20px;" >{% if prediction %}{% if (prediction[0][1]*100) > 1 %}<span style="color: #FFAB00;">Potato : </span> <i class="bi bi-check-all" style="padding-right: 20px;">Existe</i><input type="text" placeholder="calories" style="width: 30%;text-align: center;">  {% endif %}{% endif %}</p>
+                                
+                                <p class="text-gray-900 font-bold" >{% if prediction %}{% if (prediction[0][2]*100) > 1 %}<span style="color: blue;">viande : </span> <i class="bi bi-check-all" style="padding-right: 30px;">Existe</i><input type="text" placeholder="calories"  style="width: 30%;text-align: center;" autofocus>  {% endif %}{% endif %}</p>
+                                <p class="text-gray-900 font-bold" >{% if prediction %}{% if (prediction[0][3]*100) > 30 %}<span style="color: violet;">poulet : </span> <i class="bi bi-check-all" style="padding-right: 30px;">Existe</i><input type="text" placeholder="calories"  style="width: 30%;text-align: center;" autofocus>  {% endif %}{% endif %}</p>
+                                <p class="text-gray-900 font-bold" >{% if prediction %}{% if (prediction[0][4]*100) > 1.5 %}<span style="color: yellow;">citron : </span> <i class="bi bi-check-all" style="padding-right: 30px;">Existe</i><input type="text" placeholder="calories"  style="width: 30%;text-align: center;" autofocus>  {% endif %}{% endif %}</p>
+                            </div>
+					<input type="submit" name="eng" value="Start Test" class="btn btn-primary mb-3" style="margin-left: 36%;margin-top: 20px">
+                        </div>
+                       
+                     </form> 
+                    </div>
+                </div>
+            </div>      
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						$('#imagePreview').attr('src', e.target.result);
+						// $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+						
+						$('#imagePreview').fadeIn(650);
+					};
+					reader.readAsDataURL(input.files[0]);
+					init().then(() => {
+						predict();
+					});
+				}
+			}
+			$('#image').change(function () {
+				readURL(this);
+			});
+          
+		</script>
+        
+    
+</body>
+</html>
